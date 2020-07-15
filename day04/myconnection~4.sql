@@ -27,3 +27,19 @@ SELECT EMP.LAST_NAME FROM EMPLOYEES EMP
 WHERE EMP.EMPLOYEE_ID NOT IN 
 (SELECT mgr.manager_id from EMPLOYEES mgr);
 /*값중에 하나라도 있으면 안됨 not in null 이 있으면 비교가 안되서 아무것도 없음결과 */
+
+select last_name from EMPLOYEES 
+where EMPLOYEE_ID not in
+(select MANAGER_ID from EMPLOYEES where manager_id is not null);
+
+select * from EMP_1 where hiredate
+>(select hiredate from EMP_1 where ename='송중기');
+
+select * from EMP_1 where age = (select age from EMP_1 where ename ='손예진') and ENAME<> '손예진';
+
+select * from EMP_1 where AGENCY_ID = (select AGENCY_ID from EMP_1 where ename ='박민영') and SAL > (select SAL from EMP_1 where ename ='박민영');
+
+select e.ename ,e.mento_id from EMP_1 e 
+where e.EMPNO not in(select m.mento_id from EMP_1 m where mento_id is not null);
+
+select * from EMP_1 where sal >(select avg(sal) from EMP_1 where AGENCY_id =20);
